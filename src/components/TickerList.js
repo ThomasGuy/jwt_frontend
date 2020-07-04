@@ -2,35 +2,35 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchTickers } from '../actions';
-import Ticker from './Ticker';
+// import Ticker from './Ticker';
 
 class TickerList extends Component {
   componentDidMount() {
     this.props.fetchTickers();
   }
 
-  renderList() {
-    const { tickers } = this.props;
-    if (!tickers) {
+  renderList = () => {
+    if (!this.props.tickers) {
       return <div>Loading...</div>;
     }
-    return tickers.map((ticker) => {
+    const tickList = this.props.tickers.map((tick) => {
       return (
-        <div className="item" key={ticker.symbol}>
-          <Ticker ticker={ticker} />
+        <div className="item" key={tick.symbol}>
+          {tick.symbol}:{tick.last_price}
         </div>
       );
     });
-  }
+
+    return <div>{tickList}</div>;
+  };
 
   render() {
-    console.log(this.props.tickers);
     return <div className="ui divided list">{this.renderList()}</div>;
   }
 }
 
 const mapStateToProps = (state) => {
-  return { tickers: state.tickers };
+  return { tickers: Object.values(state.tickers) };
 };
 
 export default connect(mapStateToProps, { fetchTickers })(TickerList);

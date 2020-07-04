@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
-import tickersReducer from './tickersReducer';
+import authReducer from './authReducer';
+import tickerReducer from './tickerReducer';
 
 export default combineReducers({
-  tickers: tickersReducer,
+  auth: authReducer,
+  form: formReducer,
+  tickers: tickerReducer,
 });
