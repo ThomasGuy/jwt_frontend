@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import jwtDecode from 'jwt-decode';
 
 import { fetchTickers } from '../actions';
+// import expired from '../util/expired';
 // import Ticker from './Ticker';
 
 class TickerList extends Component {
   componentDidMount() {
-    this.props.fetchTickers();
+    // let auth = expired;
+    this.props.fetchTickers(this.props.auth);
   }
 
   renderList = () => {
+    // console.log(jwtDecode(this.props.auth));
     if (!this.props.tickers) {
       return <div>Loading...</div>;
     }
@@ -30,7 +34,10 @@ class TickerList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { tickers: Object.values(state.tickers) };
+  return {
+    auth: state.auth.authToken,
+    tickers: Object.values(state.tickers),
+  };
 };
 
 export default connect(mapStateToProps, { fetchTickers })(TickerList);

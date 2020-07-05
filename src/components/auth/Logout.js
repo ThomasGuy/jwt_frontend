@@ -5,10 +5,14 @@ import { requestLogout } from '../../actions';
 
 const Logout = (props) => {
   return (
-    <div className="item button right floated" onClick={() => props.requestLogout()}>
+    <div className="item button right floated" onClick={() => props.requestLogout(props.auth)}>
       Logout
     </div>
   );
 };
 
-export default connect(null, { requestLogout })(Logout);
+const mapStateToProps = (state) => ({
+  auth: state.auth.authToken,
+});
+
+export default connect(mapStateToProps, { requestLogout })(Logout);

@@ -5,9 +5,9 @@ import { FETCH_TICKERS, FETCH_TICKER } from '../actions/types';
 export default (state = {}, action) => {
   switch (action.type) {
     case FETCH_TICKERS:
-      return { ...state, ..._.mapKeys(action.payload, 'symbol') };
+      return { ...state, ..._.mapKeys(action.payload.data, 'symbol') };
     case FETCH_TICKER:
-      return { ...state, [action.payload.symbol]: action.payload };
+      return { ...state, [action.payload.data.symbol]: action.payload.data };
     default:
       return state;
   }

@@ -1,13 +1,15 @@
 // reducers.js
 
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from '../actions/types';
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, REFRESHED } from '../actions/types';
 
 // The auth reducer. The starting state sets authentication
 // based on a token being in local storage. In a real app,
 // we would also want a util to check if the token is expired.
 
 const INITIAL_STATE = {
-  isAuthenticated: localStorage.getItem('authToken') ? true : false,
+  isAuthenticated: false,
+  authToken: '',
+  refreshToken: '',
   errorMessage: '',
 };
 
@@ -26,11 +28,15 @@ export default (state = INITIAL_STATE, action) => {
         errorMessage: '',
       });
     case LOGOUT_SUCCESS:
-      localStorage.clear();
       return Object.assign({}, state, {
         isAuthenticated: false,
         authToken: '',
         refreshToken: '',
+        errorMessage: action.payload.message,
+      });
+    case REFRESHED:
+      return Object.assign({}, state, {
+        authToken: action.payload.access_token,
       });
     default:
       return state;
