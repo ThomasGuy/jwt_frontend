@@ -7,6 +7,7 @@ import TickerList from './TickerList';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import history from '../history';
+import Profile from './Profile';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route path="/auth/login" component={Login} />
             <Route path="/auth/Register" component={Register} />
             <Route path="/bfxapi" component={TickerList} />
+            <Route path="/profile" component={Profile} />
           </Switch>
         </div>
       </Router>

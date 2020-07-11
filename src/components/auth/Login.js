@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { requestLogin } from '../../actions';
+import { login } from '../../actions';
+// import { LOGIN_REQUEST } from '../../actions/types';
 import AuthForm from './AuthForm';
 
 const initialize = { username: '', password: '' };
 
 const Login = (props) => {
   const onSubmit = (formValues) => {
-    props.requestLogin(formValues);
+    props.login(formValues);
   };
 
   const { errorMsg } = props;
@@ -22,8 +23,8 @@ const Login = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   errorMsg: state.auth.errorMessage,
 });
 
-export default connect(mapStateToProps, { requestLogin })(Login);
+export default connect(mapStateToProps, { login })(Login);

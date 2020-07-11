@@ -14,6 +14,9 @@ const renderHeader = (props) => {
         <Link to="/Bfxapi" className="item">
           Bfxapi
         </Link>
+        <Link to="/profile" className="item right floated">
+          Profile
+        </Link>
         <Logout />
       </div>
     );

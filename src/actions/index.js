@@ -1,62 +1,47 @@
 import bfx from '../apis/bfx_tickers';
-import {
-  FETCH_TICKERS,
-  FETCH_TICKER,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOGOUT_SUCCESS,
-  REFRESHED,
-} from './types';
 import history from '../history';
+import { FETCH_TICKERS, FETCH_TICKER, API_REQUEST, API_SUCCESS, API_FAIL } from './types';
 
-function authorize2(auth) {
-  return {
-    headers: {
-      Authorization: `Bearer ${auth}`,
-    },
-  };
-}
+import { login, logout, refreshToken } from './auth';
+export { login, logout, refreshToken };
 
-export const fetchTickers = (auth) => async (dispatch) => {
-  const response = await bfx.get('/api/tickers', authorize2(auth));
+export const fetchTickers = () => async (dispatch) => {
+  const response = await bfx.get('/api/tickers');
   dispatch({ type: FETCH_TICKERS, payload: response.data });
 };
 
-export const fetchTicker = (symbol, auth) => async (dispatch) => {
-  const response = await bfx.post('/api/symbols', symbol, authorize2(auth));
+export const fetchTicker = (symbol) => async (dispatch) => {
+  const response = await bfx.post('/api/symbols', symbol);
   dispatch({ type: FETCH_TICKER, payload: response.data });
 };
 
-export const requestLogin = (creds) => async (dispatch) => {
-  try {
-    const response = await bfx.post('/auth/login', creds);
-    if (response.data.status === 'fail') {
-      dispatch({ type: LOGIN_FAILURE, payload: response.data });
-      history.push('/auth/login');
-    } else {
-      dispatch({ type: LOGIN_SUCCESS, payload: response.data });
-      history.push('/bfxapi');
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+function apiRequest() {
+  return {
+    type: API_REQUEST,
+  };
+}
 
-export const requestLogout = (auth) => async (dispatch) => {
-  try {
-    const response = await bfx.get('/auth/logout', authorize2(auth));
-    dispatch({ type: LOGOUT_SUCCESS, payload: response.data });
-    history.push('/');
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+function apiSuccess(data) {
+  return {
+    type: API_SUCCESS,
+    payload: data,
+  };
+}
 
-export const refreshToken = (refresh) => async (dispatch) => {
-  try {
-    const response = await bfx.post('/auth/refresh', authorize2(refresh));
-    dispatch({ type: REFRESHED, payload: response.data });
-  } catch (error) {
-    console.log(error.message);
+function apiFail(data) {
+  return {
+    type: API_FAIL,
+    payload: data,
+  };
+}
+
+export const fetchProfile = () => async (dispatch) => {
+  dispatch(apiRequest());
+  const response = await bfx.get('/protected');
+  if (response.data.status === 'success') {
+    dispatch(apiSuccess(response.data));
+  } else {
+    dispatch(apiFail(response.data));
+    history.push('/bfxapi');
   }
 };

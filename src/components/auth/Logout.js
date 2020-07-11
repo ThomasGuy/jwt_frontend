@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { requestLogout } from '../../actions';
+import { logout } from '../../actions';
 
 const Logout = (props) => {
   return (
-    <div className="item button right floated" onClick={() => props.requestLogout(props.auth)}>
+    <div className="item button" onClick={() => props.logout()}>
       Logout
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth.authToken,
-});
+// const mapStateToProps = (state) => ({
+//   auth: state.auth.authToken,
+// });
 
-export default connect(mapStateToProps, { requestLogout })(Logout);
+export default connect(null, { logout })(Logout);

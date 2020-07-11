@@ -1,6 +1,14 @@
 // reducers.js
 
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, REFRESHED } from '../actions/types';
+import {
+  AUTH_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT_SUCCESS,
+  REFRESH_SUCCESS,
+  REFRESH_FAIL,
+  LOGOUT_FAIL,
+} from '../actions/types';
 
 // The auth reducer. The starting state sets authentication
 // based on a token being in local storage. In a real app,
@@ -8,6 +16,7 @@ import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, REFRESHED } from '../acti
 
 const INITIAL_STATE = {
   isAuthenticated: false,
+  isFetching: false,
   authToken: '',
   refreshToken: '',
   errorMessage: '',
@@ -15,13 +24,20 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case LOGIN_FAILURE:
+    case AUTH_REQUEST:
       return Object.assign({}, state, {
+        isFetching: true,
+      });
+    case LOGIN_FAIL:
+      return Object.assign({}, state, {
+        isFetching: false,
         isAuthenticated: false,
         errorMessage: action.payload.message,
       });
     case LOGIN_SUCCESS:
+      localStorage.setItem('authToken', action.payload.auth_token);
       return Object.assign({}, state, {
+        isFetching: false,
         isAuthenticated: true,
         authToken: action.payload.auth_token,
         refreshToken: action.payload.refresh_token,
@@ -29,14 +45,25 @@ export default (state = INITIAL_STATE, action) => {
       });
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
+        isFetching: false,
         isAuthenticated: false,
         authToken: '',
         refreshToken: '',
         errorMessage: action.payload.message,
       });
-    case REFRESHED:
+    case LOGOUT_FAIL:
       return Object.assign({}, state, {
+        isFetching: false,
+        errorMessage: action.payload.message,
+      });
+    case REFRESH_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
         authToken: action.payload.access_token,
+      });
+    case REFRESH_FAIL:
+      return Object.assign({}, state, {
+        isFetching: false,
       });
     default:
       return state;
