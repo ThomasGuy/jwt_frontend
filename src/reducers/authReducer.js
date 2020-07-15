@@ -17,8 +17,8 @@ import {
 const INITIAL_STATE = {
   isAuthenticated: false,
   isFetching: false,
-  authToken: '',
-  refreshToken: '',
+  access_token: '',
+  refresh_token: '',
   errorMessage: '',
 };
 
@@ -35,35 +35,41 @@ export default (state = INITIAL_STATE, action) => {
         errorMessage: action.payload.message,
       });
     case LOGIN_SUCCESS:
-      localStorage.setItem('authToken', action.payload.auth_token);
+      localStorage.setItem('access_token', action.payload.access_token);
+      localStorage.setItem('refresh_token', action.payload.refresh_token);
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
-        authToken: action.payload.auth_token,
-        refreshToken: action.payload.refresh_token,
+        access_token: action.payload.access_token,
+        refresh_token: action.payload.refresh_token,
         errorMessage: '',
       });
     case LOGOUT_SUCCESS:
+      localStorage.clear();
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: false,
-        authToken: '',
-        refreshToken: '',
+        access_token: '',
+        refresh_token: '',
         errorMessage: action.payload.message,
       });
     case LOGOUT_FAIL:
+      localStorage.clear();
       return Object.assign({}, state, {
         isFetching: false,
+        isAuthenticated: false,
         errorMessage: action.payload.message,
       });
     case REFRESH_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
-        authToken: action.payload.access_token,
+        access_token: action.payload.access_token,
       });
     case REFRESH_FAIL:
+      localStorage.clear();
       return Object.assign({}, state, {
         isFetching: false,
+        isAuthenticated: false,
       });
     default:
       return state;

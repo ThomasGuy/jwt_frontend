@@ -1,19 +1,11 @@
-import bfx from '../apis/bfx_tickers';
+import fetchClient from '../apis/bfx_tickers';
 import history from '../history';
-import { FETCH_TICKERS, FETCH_TICKER, API_REQUEST, API_SUCCESS, API_FAIL } from './types';
+import { API_REQUEST, API_SUCCESS, API_FAIL } from './types';
 
-import { login, logout, refreshToken } from './auth';
-export { login, logout, refreshToken };
+import { login, logout, refresh } from './auth';
+export { login, logout, refresh };
 
-export const fetchTickers = () => async (dispatch) => {
-  const response = await bfx.get('/api/tickers');
-  dispatch({ type: FETCH_TICKERS, payload: response.data });
-};
-
-export const fetchTicker = (symbol) => async (dispatch) => {
-  const response = await bfx.post('/api/symbols', symbol);
-  dispatch({ type: FETCH_TICKER, payload: response.data });
-};
+let bfx = fetchClient();
 
 function apiRequest() {
   return {
@@ -36,12 +28,18 @@ function apiFail(data) {
 }
 
 export const fetchProfile = () => async (dispatch) => {
-  dispatch(apiRequest());
-  const response = await bfx.get('/protected');
-  if (response.data.status === 'success') {
-    dispatch(apiSuccess(response.data));
-  } else {
-    dispatch(apiFail(response.data));
-    history.push('/bfxapi');
+  try {
+    dispatch(apiRequest());
+    const response = await bfx.get('/protected');
+    if (response.data.status === 'success') {
+      dispatch(apiSuccess(response.data));
+    } else {
+      dispatch(apiFail(response.data));
+      history.push('/auth/login');
+    }
+  } catch (error) {
+    dispatch(apiFail(error.message));
+    console.log('fetchProfile error ', error.message);
+    history.push('/auth/login');
   }
 };

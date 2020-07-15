@@ -12,7 +12,7 @@ const Logout = (props) => {
 };
 
 // const mapStateToProps = (state) => ({
-//   auth: state.auth.authToken,
+//   auth: state.auth.access_token,
 // });
 
 export default connect(null, { logout })(Logout);

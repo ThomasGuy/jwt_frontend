@@ -1,6 +1,6 @@
 import { API_REQUEST, API_SUCCESS, API_FAIL } from '../actions/types';
 
-export default (state = { isFetching: false }, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case API_REQUEST:
       return Object.assign({}, state, {

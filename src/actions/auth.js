@@ -1,4 +1,4 @@
-import bfx from '../apis/bfx_tickers';
+import fetchClient from '../apis/bfx_tickers';
 import history from '../history';
 import {
   AUTH_REQUEST,
@@ -10,13 +10,7 @@ import {
   REFRESH_FAIL,
 } from './types';
 
-function authorize2(token) {
-  return {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-}
+let bfx = fetchClient();
 
 function requestAuth() {
   return {
@@ -98,10 +92,10 @@ export const logout = () => async (dispatch) => {
   }
 };
 
-export const refreshToken = (refresh) => async (dispatch) => {
+export const refresh = (refresh) => async (dispatch) => {
   try {
     dispatch(requestAuth());
-    const response = await bfx.post('/auth/refresh', authorize2(refresh));
+    const response = await bfx.post('/auth/refresh');
     if (response.data.access_token) {
       dispatch(refreshSuccess(response.data));
     } else {
