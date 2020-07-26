@@ -2,12 +2,12 @@
 
 import {
   AUTH_REQUEST,
-  LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT_SUCCESS,
-  REFRESH_SUCCESS,
-  REFRESH_FAIL,
+  LOGIN_SUCCESS,
   LOGOUT_FAIL,
+  LOGOUT_SUCCESS,
+  REFRESH_FAIL,
+  REFRESH_SUCCESS,
 } from '../actions/types';
 
 // The auth reducer. The starting state sets authentication

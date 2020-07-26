@@ -3,7 +3,9 @@ import history from '../history';
 import { API_REQUEST, API_SUCCESS, API_FAIL } from './types';
 
 import { login, logout, refresh } from './auth';
-export { login, logout, refresh };
+import { fetchTickers } from './api';
+
+export { login, logout, refresh, fetchTickers };
 
 let bfx = fetchClient();
 

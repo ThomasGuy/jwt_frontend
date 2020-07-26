@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import { login } from '../../actions';
-// import { LOGIN_REQUEST } from '../../actions/types';
 import AuthForm from './AuthForm';
 
 const initialize = { username: '', password: '' };
