@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from 'react'
+import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 
-import Logout from './auth/Logout';
+import Logout from './auth/Logout'
 
-const renderHeader = (props) => {
+const renderHeader = props => {
   if (props.isSignedIn) {
     return (
       <div className="ui secondary pointing menu">
@@ -19,7 +19,7 @@ const renderHeader = (props) => {
         </Link>
         <Logout />
       </div>
-    );
+    )
   }
   return (
     <div className="ui secondary pointing menu">
@@ -33,13 +33,13 @@ const renderHeader = (props) => {
         Register
       </Link>
     </div>
-  );
-};
+  )
+}
 
-const Header = (props) => renderHeader(props);
+const Header = props => renderHeader(props)
 
-const mapStateToProps = (state) => {
-  return { isSignedIn: state.auth.isAuthenticated };
-};
+const mapStateToProps = state => {
+  return {isSignedIn: state.auth.isAuthenticated}
+}
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(Header)
