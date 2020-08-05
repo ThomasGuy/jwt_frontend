@@ -3,7 +3,8 @@ import axios from 'axios'
 const fetchClient = () => {
   // Create instance
   const defaultOptions = {
-    baseURL: 'http://127.0.0.1:8000',
+    // baseURL: 'http://127.0.0.1:8000',
+    baseURL: 'http://172.22.82.82:7000',
     headers: {
       'Content-Type': 'application/json',
     },

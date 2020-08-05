@@ -3,9 +3,9 @@ import history from '../history'
 import {API_REQUEST, API_SUCCESS, API_FAIL} from './types'
 
 import {login, logout, refresh} from './auth'
-import {fetchTickers} from './api'
+import {fetchTickers, updateTicker} from './api'
 
-export {login, logout, refresh, fetchTickers}
+export {login, logout, refresh, fetchTickers, updateTicker}
 
 let bfx = fetchClient()
 

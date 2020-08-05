@@ -1,24 +1,42 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-// import jwtDecode from 'jwt-decode';
+import io from 'socket.io-client'
 
-import {fetchTickers} from '../actions'
+import {fetchTickers, updateTicker} from '../actions'
+
 import Ticker from './Ticker'
+
+const socket = io('http://127.0.0.1:8000/api', {
+  transports: ['websocket'],
+})
 
 class TickerList extends Component {
   componentDidMount() {
     this.props.fetchTickers()
+
+    socket.on('connect', () => {
+      console.log('test connected you dumb arse')
+    })
+    socket.on('ticker_update', payload => {
+      console.log('Got data:', payload.symbol)
+      this.props.updateTicker(payload)
+    })
+    socket.on('disconnect', () => {
+      console.log('Disconnect to server')
+    })
   }
 
   renderList = () => {
-    if (!this.props.tickers) {
+    const {coins, pending} = this.props.tickers
+
+    if (pending) {
       return <div>Loading...</div>
     }
 
-    const tickList = this.props.tickers.map(tick => {
+    const tickList = Object.entries(coins).map(([key, value]) => {
       return (
-        <div className="item" key={tick.symbol}>
-          <Ticker ticker={tick} />
+        <div className="item" key={key}>
+          <Ticker ticker={value} />
         </div>
       )
     })
@@ -37,8 +55,11 @@ class TickerList extends Component {
 
 const mapStateToProps = state => {
   return {
-    tickers: Object.values(state.tickers),
+    tickers: state.tickers,
   }
 }
 
-export default connect(mapStateToProps, {fetchTickers})(TickerList)
+export default connect(mapStateToProps, {
+  updateTicker,
+  fetchTickers,
+})(TickerList)

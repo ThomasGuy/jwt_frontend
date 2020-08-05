@@ -70,7 +70,7 @@ export const login = creds => async dispatch => {
       history.push('/bfxapi')
     }
   } catch (error) {
-    dispatch(loginFail({data: error.message}))
+    dispatch(loginFail({message: error.message}))
     history.push('/auth/login')
     console.log(error.message)
   }
@@ -87,7 +87,7 @@ export const logout = () => async dispatch => {
       history.push('/auth/login')
     }
   } catch (error) {
-    dispatch(logoutFail({data: error.message}))
+    dispatch(logoutFail({message: error.message}))
     console.log(error.message)
   }
 }
@@ -103,7 +103,7 @@ export const refresh = refresh => async dispatch => {
       history.push('/auth/login')
     }
   } catch (error) {
-    dispatch(refreshFail({data: error.message}))
+    dispatch(refreshFail({message: error.message}))
     history.push('/auth/login')
     console.log(error.message)
   }
