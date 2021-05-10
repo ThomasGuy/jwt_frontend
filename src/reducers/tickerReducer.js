@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   coins: {},
 };
 
-export default (state = INITIAL_STATE, action) => {
+const tickerReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case REQUEST_TICKERS:
       return Object.assign({}, state, {
@@ -36,3 +36,5 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export default tickerReducer;

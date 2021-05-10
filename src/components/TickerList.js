@@ -6,7 +6,7 @@ import { fetchTickers, updateTicker } from '../actions';
 
 import Ticker from './Ticker';
 
-const socket = io('http://127.0.0.1:8000/api', {
+const socket = io('http://127.0.0.1:7000/api', {
   transports: ['websocket'],
 });
 

@@ -4,7 +4,6 @@ const fetchClient = () => {
   // Create instance
   const defaultOptions = {
     baseURL: 'http://127.0.0.1:7000',
-    // baseURL: 'http://172.22.82.82:6000',
     headers: {
       'Content-Type': 'application/json',
     },

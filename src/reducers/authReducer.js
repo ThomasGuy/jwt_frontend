@@ -22,7 +22,7 @@ const INITIAL_STATE = {
   errorMessage: '',
 };
 
-export default (state = INITIAL_STATE, action) => {
+const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case AUTH_REQUEST:
       return Object.assign({}, state, {
@@ -75,3 +75,5 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export default authReducer;
