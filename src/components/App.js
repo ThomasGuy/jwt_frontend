@@ -1,13 +1,13 @@
-import React from 'react'
-import {Router, Route, Switch} from 'react-router-dom'
+import React from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
 
-import Header from './Header'
-import HomePage from './HomePage'
-import TickerList from './TickerList'
-import Login from './auth/Login'
-import Register from './auth/Register'
-import history from '../history'
-import Profile from './Profile'
+import Header from './Header';
+import HomePage from './HomePage';
+import TickerList from './TickerList';
+import Login from './auth/Login';
+import Register from './auth/Register';
+import history from '../history';
+import Profile from './Profile';
 
 const App = () => {
   return (
@@ -25,7 +25,7 @@ const App = () => {
         </div>
       </Router>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

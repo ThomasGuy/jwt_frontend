@@ -9,13 +9,14 @@
   "plugins": ["prettier", "babel"],
   "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 2019,
+    "ecmaVersion": 2020,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
   },
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "import/no-anonymous-default-export": 0
   }
 }
