@@ -19,7 +19,6 @@ const fetchClient = () => {
       .then(res => {
         const token = res.data.access_token;
         localStorage.setItem('access_token', token);
-        console.log('new access token ', token);
         return token;
       })
       .catch(error => {

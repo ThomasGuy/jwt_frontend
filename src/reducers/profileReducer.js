@@ -1,6 +1,6 @@
 import { API_REQUEST, API_SUCCESS, API_FAIL } from '../actions/types';
 
-export default (state = {}, action) => {
+const profileReducer = (state = {}, action) => {
   switch (action.type) {
     case API_REQUEST:
       return Object.assign({}, state, {
@@ -22,3 +22,5 @@ export default (state = {}, action) => {
       return state;
   }
 };
+
+export default profileReducer;

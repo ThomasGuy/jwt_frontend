@@ -18,6 +18,7 @@ class TickerList extends Component {
       console.log('test connected you dumb arse');
     });
     socket.on('ticker_update', payload => {
+      console.log('Got data:', payload.symbol);
       this.props.updateTicker(payload);
     });
     socket.on('disconnect', () => {
