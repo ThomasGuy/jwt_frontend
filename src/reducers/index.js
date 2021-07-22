@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
-import authReducer from './authReducer';
-import tickerReducer from './tickerReducer';
-import profileReducer from './profileReducer';
+import auth from './authReducer';
+import tickers from './tickerReducer';
+import profile from './profileReducer';
 
 export default combineReducers({
-  auth: authReducer,
+  auth,
   form: formReducer,
-  tickers: tickerReducer,
-  profile: profileReducer,
+  tickers,
+  profile,
 });

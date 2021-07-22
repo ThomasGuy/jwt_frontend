@@ -16,5 +16,5 @@ export const fetchTickers = () => async dispatch => {
 };
 
 export const updateTicker = payload => dispatch => {
-  dispatch({ type: UPDATE_TICKER, payload: payload.data });
+  dispatch({ type: UPDATE_TICKER, payload });
 };

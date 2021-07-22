@@ -16,7 +16,12 @@ class AuthForm extends Component {
     const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
     return (
       <div className={className}>
-        <input {...input} autoComplete={autoComplete} placeholder={placeholder} type={type} />
+        <input
+          {...input}
+          autoComplete={autoComplete}
+          placeholder={placeholder}
+          type={type}
+        />
         {this.renderError(meta)}
       </div>
     );
@@ -53,7 +58,8 @@ class AuthForm extends Component {
 
 const validate = formValues => {
   const errors = {};
-  if (!formValues.username) errors.username = 'username must consist of letters and/or numbers';
+  if (!formValues.username)
+    errors.username = 'username must consist of letters and/or numbers';
   if (!formValues.password) errors.password = 'please enter a password';
 
   return errors;

@@ -1,6 +1,11 @@
-import _ from 'lodash';
+import { mapKeys } from 'lodash';
 
-import { FETCH_TICKERS, FAIL_TICKERS, UPDATE_TICKER, REQUEST_TICKERS } from '../actions/types';
+import {
+  FETCH_TICKERS,
+  FAIL_TICKERS,
+  UPDATE_TICKER,
+  REQUEST_TICKERS,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   pending: false,
@@ -22,7 +27,7 @@ const tickerReducer = (state = INITIAL_STATE, action) => {
     case FETCH_TICKERS:
       return Object.assign({}, state, {
         pending: false,
-        coins: _.mapKeys(action.payload.data, 'symbol'),
+        coins: mapKeys(action.payload.data, 'symbol'),
         errrorMessage: '',
       });
     case UPDATE_TICKER:
